@@ -44,7 +44,10 @@ export const QueryParamsCalendarController = () => {
   };
 
   useEffect(() => {
-    fetchData(year, currentMonthMoment.format("MM"));
+    fetchData(
+      year ?? moment().year(),
+      currentMonthMoment.format("MM") ?? moment().month().format("MM")
+    );
   }, [year, currentMonthMoment]);
 
   return (

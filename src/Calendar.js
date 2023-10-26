@@ -96,6 +96,15 @@ const CalendarCellEmpty = styled.div`
   height: 24px;
 `;
 
+const EventContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+`;
+
 export const getDaysInMonth = (monthMoment) => {
   const monthCopy = monthMoment.clone();
   monthCopy.startOf("month");
@@ -187,7 +196,7 @@ export const Calendar = ({ month, year, onPrev, onNext, gitEvents }) => {
                       {dayMoment ? (
                         <>
                           <NumberCircle>{dayMoment.format("D")}</NumberCircle>
-                          <div>
+                          <EventContainer>
                             {gitEvents &&
                               gitEvents.length > 0 &&
                               gitEvents
@@ -204,10 +213,11 @@ export const Calendar = ({ month, year, onPrev, onNext, gitEvents }) => {
                                     ) === dayMoment.format("YYYY")
                                   );
                                 })
+                                .slice(0, 1)
                                 .map((event, index) => (
                                   <div key={index}>{event.commit.message}</div>
                                 ))}
-                          </div>
+                          </EventContainer>
                         </>
                       ) : (
                         <CalendarCellEmpty />
